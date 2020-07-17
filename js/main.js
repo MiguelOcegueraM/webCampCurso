@@ -4,19 +4,6 @@
     var regalo = document.getElementById('regalo');
     document.addEventListener('DOMContentLoaded', function() {
 
-        // mapa
-        var map = L.map('mapa').setView([19.258899, -463.69037], 16);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        L.marker([19.258899, -463.69037]).addTo(map)
-            .bindPopup('GDLWebCamp 2020 </br> Boletos Ya Disponibles')
-            .openPopup()
-            .bindTooltip('Centro de Convenciones Allegra')
-            .openTooltip();
-
         // campos datos de usuario
         var nombre = document.getElementById('nombre');
         var apellido = document.getElementById('apellido');
@@ -146,6 +133,21 @@
                 errorDiv.style.border = '1px solid red';
             }
         }
+
+        // mapa
+
+        var map = L.map('mapa').setView([19.258899, -463.69037], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([19.258899, -463.69037]).addTo(map)
+            .bindPopup('GDLWebCamp 2020 </br> Boletos Ya Disponibles')
+            .openPopup()
+            .bindTooltip('Centro de Convenciones Allegra')
+            .openTooltip();
+
 
 
 
