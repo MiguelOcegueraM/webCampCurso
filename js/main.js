@@ -1,7 +1,9 @@
 //IIEFI
 (function() {
     'use strict';
+
     var regalo = document.getElementById('regalo');
+
     document.addEventListener('DOMContentLoaded', function() {
 
         // campos datos de usuario
@@ -14,26 +16,29 @@
         var pase_completo = document.getElementById('pase_completo');
 
         //botones y divs
-        var calcular = document.getElementById('calcular');
-        var errorDiv = document.getElementById('error');
-        var botonRegistro = document.getElementById('btnRegistro');
-        var lista_productos = document.getElementById('lista-productos');
-        var suma = document.getElementById('suma-total');
+        if (document.getElementById('calcular')) {
+            var calcular = document.getElementById('calcular');
+            var errorDiv = document.getElementById('error');
+            var botonRegistro = document.getElementById('btnRegistro');
+            var lista_productos = document.getElementById('lista-productos');
+            var suma = document.getElementById('suma-total');
 
-        //Extras
-        var etiquetas = document.getElementById('etiquetas');
-        var camisas = document.getElementById('camisa_evento');
+            //Extras
+            var etiquetas = document.getElementById('etiquetas');
+            var camisas = document.getElementById('camisa_evento');
 
-        // eventos que llaman a funciones
-        calcular.addEventListener('click', calcularMontos);
-        pase_dia.addEventListener('blur', mostrarDias);
-        pase_dosdias.addEventListener('blur', mostrarDias);
-        pase_completo.addEventListener('blur', mostrarDias);
+            // eventos que llaman a funciones
+            calcular.addEventListener('click', calcularMontos);
+            pase_dia.addEventListener('blur', mostrarDias);
+            pase_dosdias.addEventListener('blur', mostrarDias);
+            pase_completo.addEventListener('blur', mostrarDias);
 
-        nombre.addEventListener('blur', validarCampos);
-        apellido.addEventListener('blur', validarCampos);
-        email.addEventListener('blur', validarCampos);
-        email.addEventListener('blur', validarMail);
+            nombre.addEventListener('blur', validarCampos);
+            apellido.addEventListener('blur', validarCampos);
+            email.addEventListener('blur', validarCampos);
+            email.addEventListener('blur', validarMail);
+
+        }
 
         //Calcular montos de venta
         function calcularMontos(event) {
@@ -135,21 +140,83 @@
         }
 
         // mapa
+        cargarMapa();
 
-        var map = L.map('mapa').setView([19.258899, -463.69037], 16);
+        function cargarMapa() {
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+            var map = L.map('mapa').setView([19.258899, -463.69037], 16);
 
-        L.marker([19.258899, -463.69037]).addTo(map)
-            .bindPopup('GDLWebCamp 2020 </br> Boletos Ya Disponibles')
-            .openPopup()
-            .bindTooltip('Centro de Convenciones Allegra')
-            .openTooltip();
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-
+            L.marker([19.258899, -463.69037]).addTo(map)
+                .bindPopup('GDLWebCamp 2020 </br> Boletos Ya Disponibles')
+                .openPopup()
+                .bindTooltip('Centro de Convenciones Allegra')
+                .openTooltip();
+        }
 
 
     }); //DOM CONTENT LOADED
 })();
+
+
+// Programa de conferencias con JQuery
+$(function() {
+
+    //Lettering
+    $('.nombre-sitio').lettering();
+
+    //MENU FIJO
+
+    var windowHeight = $(window).height();
+    var barraAltura = $('.barra').innerHeight();
+
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        if (scroll > windowHeight) {
+            $('.barra').addClass('fixed');
+            $('body').css({ 'margin-top': barraAltura + 'px' });
+        } else {
+            $('.barra').removeClass('fixed');
+            $('body').css({ 'margin-top': '0px' });
+        }
+    });
+
+    //menu responsive
+    $('.menu-movil').on('click', function() {
+        $('.navegacion-principal').slideToggle();
+    });
+
+    //conferencias
+    $('div.ocultar').hide()
+    $('.programa-evento .info-curso:first').show();
+    $('.menu-programa a:first').addClass('activo');
+
+    $('.menu-programa a').on('click', function() {
+        $('.menu-programa a').removeClass('activo');
+        $(this).addClass('activo');
+        $('div.ocultar').hide()
+        var enlace = $(this).attr('href');
+        $(enlace).fadeIn(1000);
+        return false;
+    });
+
+    // funcion para contador animaciones
+    $('.resumen-evento li:nth-child(1) p').animateNumber({ number: 6 }, 1200);
+    $('.resumen-evento li:nth-child(2) p').animateNumber({ number: 15 }, 1200);
+    $('.resumen-evento li:nth-child(3) p').animateNumber({ number: 3 }, 1500);
+    $('.resumen-evento li:nth-child(4) p').animateNumber({ number: 9 }, 1500);
+
+    //funcion contador dias con countdown js
+    $('.cuenta-regresiva').countdown('2020/12/10 09:00:00', function(event) {
+        $('#dias').html(event.strftime('%D'));
+        $('#horas').html(event.strftime('%H'));
+        $('#minutos').html(event.strftime('%M'));
+        $('#segundos').html(event.strftime('%S'));
+    });
+
+
+
+});
